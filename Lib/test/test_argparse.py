@@ -3777,6 +3777,25 @@ class TestGetDefault(TestCase):
         self.assertEqual("badger", parser.get_default("foo"))
         self.assertEqual(42, parser.get_default("bar"))
 
+# =================
+# Get choices tests
+# =================
+
+class TestGetChoices(TestCase):
+
+    def test_get_choices(self):
+        parser = ErrorRaisingArgumentParser()
+        self.assertIsNone(parser.get_choices("foo"))
+        self.assertIsNone(parser.get_choices("bar"))
+
+        parser.add_argument("--foo")
+        self.assertIsNone(parser.get_choices("foo"))
+        self.assertIsNone(parser.get_choices("bar"))
+
+        parser.add_argument("--bar", choices=["baz", "ham"])
+        self.assertIsNone(parser.get_choices("foo"))
+        self.assertEqual(["baz", "ham"], parser.get_choices("bar"))
+
 # ==========================
 # Namespace 'contains' tests
 # ==========================

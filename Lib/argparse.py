@@ -1408,6 +1408,13 @@ class _ActionsContainer(object):
                 return action.default
         return self._defaults.get(dest, None)
 
+    # ==================================
+    # Namespace choices accessor methods
+    # ==================================
+    def get_choices(self, dest):
+        for action in self._actions:
+            if action.dest == dest:
+                return action.choices
 
     # =======================
     # Adding argument actions
